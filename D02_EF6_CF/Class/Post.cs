@@ -14,5 +14,60 @@ namespace D02_EF6_CF
         public int BlogId { get; set; }
 
         public virtual Blog Blog { get; set; }
+
+        internal static void InsertPost(int b)
+        {
+            using (var db = new BlogContext())
+            {
+                Console.Write("Insert Post's name: ");
+                var name = Console.ReadLine();
+
+                Console.Write("Insert Blog's name: ");
+                var bName = Console.ReadLine();
+
+                Console.WriteLine("Insert Post's content: ");
+                var pContent = Console.ReadLine();
+
+                var post = new Post();
+
+                post.Title = name;
+                post.Contente = pContent;
+                post.PostId = db.Blog.First(c => c.Name.Equals(bName)).BlogId;
+
+
+                db.Post.Add(post);
+
+                int success = db.SaveChanges();
+
+                Operations.InsertTest(success);
+
+                Console.ReadKey();
+            }
+        }
+
+        internal static void ListPosts(string blog)
+        {
+            using (var db = new BlogContext())
+            {
+                var query = db.Post.Select(b => b).
+                                    Where(b => b.BlogId.Equals(db.Blog.Where(c => c.Name.Equals(blog)))).
+                                    OrderBy(b => b.PostId);
+
+                Console.WriteLine("\n\n------------\nTodos os Posts\n-------------");
+
+                foreach (var item in query)
+                {
+                    Console.WriteLine(item.Title);
+                    Console.WriteLine();
+                    Console.WriteLine(item.Blog);
+                    Console.WriteLine();
+                    Console.WriteLine(item.Contente);
+                    Console.WriteLine();
+                }
+
+                Console.ReadKey();
+            }
+
+        }
     }
 }

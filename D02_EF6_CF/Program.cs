@@ -10,6 +10,8 @@ namespace D02_EF6_CF
     {
         static void Main(string[] args)
         {
+
+            /* v.1
             using(var db = new BlogContext())
             {
                 var name = Console.ReadLine();
@@ -30,7 +32,23 @@ namespace D02_EF6_CF
                 }
 
                 Console.ReadKey();
+            }*/
+
+            // v.2
+
+            try
+            {
+                Console.WriteLine("Create a blog: ");
+                Blog.InsertBlog();
             }
+            catch(Exception)
+            {
+                Console.WriteLine("Error creating the new blog\n");
+            }
+
+            Blog.ListBlogs();
+
+            Console.ReadKey();
         }
     }
 }
