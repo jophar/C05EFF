@@ -47,7 +47,9 @@ namespace D02_EF6_CF
             }
 
             Blog.ListBlogs();
+            Console.ReadKey();
 
+            Post.InsertPost();
             Console.ReadKey();
         }
     }

@@ -21,19 +21,19 @@ namespace D02_EF6_CF
                 db.Blog.Add(blog);
                 int success = db.SaveChanges();
 
-                InsertTest(success);
+                InsertTest(success, "blog");
 
                 Console.ReadKey();
             }
 
         }
 
-        internal static void InsertTest(int value)
+        internal static void InsertTest(int value, string type)
         {
             if (value > 0)
-                Console.WriteLine("Blog successfully inserted");
+                Console.WriteLine($"{type} successfully inserted");
             else
-                Console.WriteLine("No blogs have been created");
+                Console.WriteLine($"No {type}s have been created");
         }
 
 

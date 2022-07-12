@@ -26,7 +26,7 @@ namespace D02_EF6_CF
                 db.Blog.Add(blog);
                 int success = db.SaveChanges();
 
-                Operations.InsertTest(success);
+                Operations.InsertTest(success, "blog");
 
                 Console.ReadKey();
             }

@@ -15,7 +15,7 @@ namespace D02_EF6_CF
 
         public virtual Blog Blog { get; set; }
 
-        internal static void InsertPost(int b)
+        internal static void InsertPost()
         {
             using (var db = new BlogContext())
             {
@@ -25,22 +25,26 @@ namespace D02_EF6_CF
                 Console.Write("Insert Blog's name: ");
                 var bName = Console.ReadLine();
 
-                Console.WriteLine("Insert Post's content: ");
-                var pContent = Console.ReadLine();
 
-                var post = new Post();
+                if (db.Blog.Any(c => c.Name.Equals(bName)))
+                {
+                    Console.WriteLine("Insert Post's content: ");
+                    var pContent = Console.ReadLine();
 
-                post.Title = name;
-                post.Contente = pContent;
-                post.PostId = db.Blog.First(c => c.Name.Equals(bName)).BlogId;
+                    var post = new Post();
+                    post.Title = name;
+                    post.Contente = pContent;
+                    post.BlogId = db.Blog.First(c => c.Name.Equals(bName)).BlogId;
 
+                    db.Post.Add(post);
+                    int success = db.SaveChanges();
+                    Operations.InsertTest(success, "post");
+                }
 
-                db.Post.Add(post);
-
-                int success = db.SaveChanges();
-
-                Operations.InsertTest(success);
-
+                else
+                {
+                    Console.WriteLine("O blog escolhido não exite\n");
+                }
                 Console.ReadKey();
             }
         }
